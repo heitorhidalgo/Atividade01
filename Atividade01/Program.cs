@@ -1,15 +1,15 @@
-﻿using Atividade01.Models;
+﻿using Atividade01.Interfaces;
+using Atividade01.Models;
+using Atividade01.Services;
 using Microsoft.Extensions.Configuration;
 
 var builder = new ConfigurationBuilder()
-    .SetBasePath("Z:\\Aulas\\dotnet\\Csharp\\Atividade01\\Atividade01")
+    .SetBasePath("C:\\Users\\heito\\Desktop\\TRAINEE - AULAS\\DOTNET\\source\\repos\\c\\03 aula\\Atividade01\\Atividade01")
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 var configuration = builder.Build();
 
-// Obtenção da string de conexão
 string connectionString = configuration.GetConnectionString("ConexaoPadrao");
-
 ClienteService clienteService = new ClienteService(connectionString);
 
 int opcao;
@@ -27,24 +27,30 @@ do
     Console.Write("Escolha uma opção: ");
     opcao = int.Parse(Console.ReadLine());
 
-    switch (opcao)
+    try
     {
-        case 1: CadastrarCliente(); break;
-        case 2: ListarClientes(); break;
-        case 3: AtualizarCliente(); break;
-        case 4: RemoverCliente(); break;
-        case 0: Console.WriteLine("Saindo..."); break;
-        default: Console.WriteLine("Opção inválida!"); break;
+        switch (opcao)
+        {
+            case 1: CadastrarCliente(); break;
+            case 2: ListarClientes(); break;
+            case 3: AtualizarCliente(); break;
+            case 4: RemoverCliente(); break;
+            case 0: Console.WriteLine("Saindo..."); break;
+            default: Console.WriteLine("Opção inválida!"); break;
+        }
+     }
+    catch (Exception ex)
+    {
+        Console.WriteLine("\nOcorreu um Erro: " + ex.Message);
     }
 
     if (opcao != 0)
     {
-        Console.WriteLine("\nPressione qualquer tecla para continuar...");
+        Console.WriteLine("\nPressione qualquer tecla para continuar");
         Console.ReadKey();
     }
 
-} while (opcao != 0);
-
+} while (opcao !=0);
 
 void CadastrarCliente()
 {

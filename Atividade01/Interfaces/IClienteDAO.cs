@@ -2,7 +2,7 @@
 
 namespace Atividade01.Interfaces
 {
-    internal interface IClienteDAO
+    public interface IClienteDAO
     {
         public void Incluir(string pNome, string pEmail);
         public List<Cliente> ListarTodos();
